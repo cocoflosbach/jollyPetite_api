@@ -12,3 +12,22 @@ router.get("/", async (req, res) => {
         res.json({ messagae: err})
     }
 });
+
+
+// Add a new product
+router.post("/", async (req, res) {
+    const post = new Product({
+        Name: req.body.Name,
+    Description: req.body.Description,
+    Price: req.bodyPrice,
+    Quantity: req.body.Quantity,
+    Weight: req.body.Weight,
+    });
+    console.log(post);
+    try {
+        const savedProduct = await post.save();
+        res.json(savedProduct);
+    } catch (err) {
+        res.json({ message:err})
+    }
+});
