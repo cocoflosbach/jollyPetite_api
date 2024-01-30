@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
 
 
 // Add a new product
-router.post("/", async (req, res) {
+router.post("/", async (req, res) => {
     const post = new Product({
         Name: req.body.Name,
     Description: req.body.Description,
@@ -29,5 +29,15 @@ router.post("/", async (req, res) {
         res.json(savedProduct);
     } catch (err) {
         res.json({ message:err})
+    }
+});
+
+// Get product by product name
+router.get("/", async (req, res) => {
+    try{
+        const post = await Product.findOne({ Name: req.params.Name});
+        res.json(post)
+    } catch(err) {
+        res.status(500).send("Error: " + err);
     }
 });
